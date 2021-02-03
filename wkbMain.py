@@ -18,6 +18,7 @@ from Motor import *
 from servo import *
 from pynput import mouse, keyboard
 from Buzzer import *
+from subprocess import call
 
 class mywindow(QMainWindow, Ui_server_ui):
 
@@ -146,13 +147,12 @@ class mywindow(QMainWindow, Ui_server_ui):
 
     def shutdown_pi(self):
         self.toot()
+        time.sleep(0.2)
         self.toot()
-        from subprocess import call
         call("sudo nohup shutdown -h now", shell=True)
 
     def reboot_pi(self):
         self.toot()
-        from subprocess import call
         call("sudo nohup reboot", shell=True)
 
     def toot(self):
