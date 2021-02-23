@@ -1,0 +1,38 @@
+add the import:
+
+from lclkbd import *
+
+modify the __init__ for main.py  (lines marked with **)
+
+        def __init__(self):
+        self.user_ui=True
+        self.start_tcp=False
+        self.TCP_Server=Server()
+        self.parseOpt()
+**      self.localKb = localKeyboard()
+        if self.user_ui:
+            self.app = QApplication(sys.argv)
+            super(mywindow,self).__init__()
+            self.setupUi(self)
+            self.m_DragPosition=self.pos()
+            self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+            self.setMouseTracking(True)
+            self.Button_Server.setText("On")
+            self.on_pushButton()
+            self.Button_Server.clicked.connect(self.on_pushButton)
+            self.pushButton_Close.clicked.connect(self.close)
+            self.pushButton_Min.clicked.connect(self.windowMinimumed)
+        
+        if self.start_tcp:
+            self.TCP_Server.StartTcpServer()
+            self.ReadData=Thread(target=self.TCP_Server.readdata)
+            self.SendVideo=Thread(target=self.TCP_Server.sendvideo)
+            self.power=Thread(target=self.TCP_Server.Power)
+**          self.ReadLocalKb=Thread(target=self.localKb.read_keys_loop)
+            self.SendVideo.start()
+            self.ReadData.start()
+            self.power.start()
+**          self.ReadLocalKb.start()
+            if self.user_ui:
+                self.label.setText("Server On")
+                self.Button_Server.setText("Off")
