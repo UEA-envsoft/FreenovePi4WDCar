@@ -40,7 +40,7 @@ modify the __init__ for main.py  (lines marked with **)
 add one line to def close
 
     def close(self):
-            try:
+        try:
             stop_thread(self.SendVideo)
             stop_thread(self.ReadData)
             stop_thread(self.power)
