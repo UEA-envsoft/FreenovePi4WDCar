@@ -36,3 +36,12 @@ modify the __init__ for main.py  (lines marked with **)
             if self.user_ui:
                 self.label.setText("Server On")
                 self.Button_Server.setText("Off")
+
+add one line to def close
+
+    def close(self):
+            try:
+            stop_thread(self.SendVideo)
+            stop_thread(self.ReadData)
+            stop_thread(self.power)
+**          stop_thread(self.ReadLocalKb)                
